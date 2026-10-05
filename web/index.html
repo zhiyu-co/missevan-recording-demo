@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="猫耳直播录音本地控制台">
+  <meta name="local-token" content="__LOCAL_TOKEN__">
+  <title>猫耳录音控制台</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230d1018'/%3E%3Cpath d='M18 25 14 12l14 8h8l14-8-4 13v12c0 11-6 17-14 17S18 48 18 37V25Z' fill='%237c5cff'/%3E%3Ccircle cx='26' cy='34' r='3' fill='white'/%3E%3Ccircle cx='38' cy='34' r='3' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">LOCAL RECORDER</p>
+        <h1>猫耳录音控制台</h1>
+      </div>
+      <div class="status-pill" id="statusPill"><span></span><strong>空闲</strong></div>
+    </header>
+
+    <section class="workspace">
+      <form class="panel controls" id="recordForm">
+        <div class="section-heading">
+          <div><span class="step">01</span><h2>录音设置</h2></div>
+          <p>录音文件保存在项目的 recordings 目录。</p>
+        </div>
+
+        <label class="field room-field">
+          <span>房间 ID 或直播链接</span>
+          <div class="input-action">
+            <input id="room" name="room" autocomplete="off" placeholder="输入数字 ID 或完整链接" required>
+            <button class="button ghost" type="button" id="checkButton">检查状态</button>
+          </div>
+        </label>
+
+        <div class="room-card hidden" id="roomCard" aria-live="polite">
+          <div><span class="room-state" id="roomState">状态</span><strong id="roomTitle">—</strong></div>
+          <dl><div><dt>主播</dt><dd id="creator">—</dd></div><div><dt>可用流</dt><dd id="streams">—</dd></div></dl>
+        </div>
+
+        <div class="option-grid">
+          <label class="field"><span>分段时长</span><select id="segment"><option value="300">5 分钟</option><option value="600">10 分钟</option><option value="1800">30 分钟</option><option value="3600">60 分钟</option></select></label>
+          <label class="field"><span>播放流</span><select id="stream"><option value="flv">FLV（推荐）</option><option value="hls">HLS</option></select></label>
+          <label class="field"><span>限时录音</span><select id="seconds"><option value="0">直到下播</option><option value="30">试录 30 秒</option><option value="300">5 分钟</option><option value="1800">30 分钟</option></select></label>
+          <label class="field"><span>检查间隔</span><select id="interval"><option value="45">45 秒</option><option value="60">1 分钟</option><option value="300">5 分钟</option></select></label>
+        </div>
+
+        <label class="switch-row"><input id="watch" type="checkbox"><span class="switch"></span><span><strong>等待开播</strong><small>离线时持续检查，开播后自动开始</small></span></label>
+
+        <div class="actions">
+          <button class="button primary" type="submit" id="startButton"><span class="record-dot"></span>开始录音</button>
+          <button class="button danger" type="button" id="stopButton" disabled>停止录音</button>
+        </div>
+        <p class="message" id="message" role="status"></p>
+      </form>
+
+      <section class="panel console-panel">
+        <div class="section-heading">
+          <div><span class="step">02</span><h2>运行日志</h2></div>
+          <button class="text-button" id="clearButton" type="button">清空显示</button>
+        </div>
+        <div class="summary-strip">
+          <div><span>任务</span><strong id="taskStatus">未运行</strong></div>
+          <div><span>开始时间</span><strong id="startedAt">—</strong></div>
+          <div><span>进程</span><strong id="pid">—</strong></div>
+        </div>
+        <div class="console" id="console" tabindex="0" aria-label="录音运行日志">
+          <div class="empty-log" id="emptyLog"><span>⌁</span><p>开始任务后，状态和日志会显示在这里。</p></div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

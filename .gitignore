@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+recordings/
+*.partial.m4a
+.DS_Store
+sample_12s.m4a
